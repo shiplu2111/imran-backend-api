@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('page_heading');
             $table->text('sub_heading')->nullable();
             $table->json('sections')->nullable(); // Stores the array of objects
+            $table->text('payment_information')->nullable();
             $table->timestamps();
         });
     }

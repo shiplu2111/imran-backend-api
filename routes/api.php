@@ -14,6 +14,7 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ConsultancyInfoController;
+use App\Http\Controllers\ConsultationController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -59,7 +60,9 @@ Route::middleware('auth:api')->group(function () {
     // Consultancy Info Routes
     Route::get('/consultancy-info', [ConsultancyInfoController::class, 'index']);
     Route::get('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'show']);
-//--------------------------- protected routes-----------------------------//
+
+    Route::post('/consultations', [ConsultationController::class, 'store']);
+    //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
 
@@ -119,6 +122,14 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'update']);
     Route::delete('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'destroy']);
 
+    // Consultation Management Routes
+    Route::get('/consultations', [ConsultationController::class, 'index']);
+    Route::get('/consultations/{consultation}', [ConsultationController::class, 'show']);
+    Route::delete('/consultations/{consultation}', [ConsultationController::class, 'destroy']);
+
+    // The 2 Special Routes
+    Route::patch('/consultations/{consultation}/status', [ConsultationController::class, 'updateStatus']);
+    Route::patch('/consultations/{consultation}/payment', [ConsultationController::class, 'updatePaymentStatus']);
 });
 
 

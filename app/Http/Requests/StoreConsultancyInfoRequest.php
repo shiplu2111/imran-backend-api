@@ -20,6 +20,7 @@ class StoreConsultancyInfoRequest extends FormRequest
 
             'page_heading' => 'required|string|max:255',
             'sub_heading' => 'required|string',
+            'payment_information' => 'required|string',
             'sections' => 'required|array',
             'sections.*.title' => 'required|string',
             'sections.*.description' => 'required|string',

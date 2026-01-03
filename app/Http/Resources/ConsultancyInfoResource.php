@@ -14,6 +14,7 @@ class ConsultancyInfoResource extends JsonResource
             'type'         => $this->type,
             'page_heading' => $this->page_heading,
             'sub_heading'  => $this->sub_heading,
+            'payment_information' => $this->payment_information,
             'sections'     => $this->sections, // Returns JSON array
             'created_at'   => $this->created_at->toDateTimeString(),
         ];
