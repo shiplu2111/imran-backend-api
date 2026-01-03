@@ -9,6 +9,7 @@ use App\Http\Resources\BlogResource;
 use App\Traits\UploadsImages;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ActivityLog;
 
 class BlogController extends Controller
 {
@@ -80,7 +81,11 @@ class BlogController extends Controller
         ]);
 
         $status = $blog->published ? 'published' : 'unpublished';
-
+        ActivityLog::log(
+        "Blog " . ucfirst($status), // Result: "Blog Published" or "Blog Unpublished"
+        "\"{$blog->title}\" is now {$status}", // Result: "Title" is now published
+        'blog'
+    );
         return response()->json([
             'message' => "Blog {$status} successfully",
             'data' => new BlogResource($blog->load('category'))

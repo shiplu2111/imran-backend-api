@@ -38,10 +38,10 @@ class Blog extends Model
 
     // 2. USE SLUG IN URL (Route Binding)
     // This makes: api/blogs/my-blog-post work instead of api/blogs/1
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 
     // Relationship to your EXISTING Category model
     public function category(): BelongsTo

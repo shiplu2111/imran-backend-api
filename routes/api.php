@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UpdatePasswordController;
 use App\Http\Controllers\PersonalInfoController;
 use App\Http\Controllers\SmtpSettingController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ConsultancyInfoController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -53,9 +55,15 @@ Route::middleware('auth:api')->group(function () {
     // News Routes
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/news/{news}', [NewsController::class, 'show']);
+
+    // Consultancy Info Routes
+    Route::get('/consultancy-info', [ConsultancyInfoController::class, 'index']);
+    Route::get('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'show']);
 //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
+
+    Route::get('/admin/activity-logs', [ActivityLogController::class, 'index']);
     Route::put('/user/password', UpdatePasswordController::class);
 
     // SMTP Settings Routes
@@ -105,6 +113,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::put('/news/{news}', [NewsController::class, 'update']);
     Route::delete('/news/{news}', [NewsController::class, 'destroy']);
     Route::patch('/news/{news}/publish', [NewsController::class, 'togglePublish']);
+
+    // Consultancy Info Management Routes
+    Route::post('/consultancy-info', [ConsultancyInfoController::class, 'store']);
+    Route::put('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'update']);
+    Route::delete('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'destroy']);
 
 });
 
