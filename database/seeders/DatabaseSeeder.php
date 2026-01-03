@@ -12,11 +12,8 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->create([
-            'name'  => 'Developer',
-            'username' => 'ShipLuJS',
-            'email' => self::DEVELOPER_EMAIL,
-            'password' => Hash::make('password'),
-        ]);
+       $this->call([
+        PersonalInfoSeeder::class,
+    ]);
     }
 }

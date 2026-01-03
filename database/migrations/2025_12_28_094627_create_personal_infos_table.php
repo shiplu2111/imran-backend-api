@@ -6,21 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('personal_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('site_title');
+            $table->string('designation');
+            $table->text('short_bio');
+            $table->string('current_position');
+            $table->string('department');
+            $table->string('hero_image')->nullable();
+            $table->string('footer_text');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('personal_infos');
     }
