@@ -15,6 +15,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ConsultancyInfoController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\FundApplicationController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -62,6 +63,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/consultancy-info/{consultancyInfo}', [ConsultancyInfoController::class, 'show']);
 
     Route::post('/consultations', [ConsultationController::class, 'store']);
+
+    Route::post('/fund-applications', [FundApplicationController::class, 'store']);
+    Route::get('/funded-individuals', [FundApplicationController::class, 'funded']);
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -130,6 +134,14 @@ Route::middleware(['auth:api'])->group(function () {
     // The 2 Special Routes
     Route::patch('/consultations/{consultation}/status', [ConsultationController::class, 'updateStatus']);
     Route::patch('/consultations/{consultation}/payment', [ConsultationController::class, 'updatePaymentStatus']);
+
+    // Fund Application Management Routes
+    Route::get('/fund-applications', [FundApplicationController::class, 'index']);
+    Route::get('/fund-applications/{fundApplication}', [FundApplicationController::class, 'show']);
+    Route::delete('/fund-applications/{fundApplication}', [FundApplicationController::class, 'destroy']);
+
+    // Update Status
+    Route::patch('/fund-applications/{fundApplication}/status', [FundApplicationController::class, 'updateStatus']);
 });
 
 

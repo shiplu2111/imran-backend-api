@@ -7,6 +7,7 @@ use App\Http\Requests\StoreConsultationRequest;
 use App\Http\Resources\ConsultationResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Models\ActivityLog;
 
 class ConsultationController extends Controller
 {
@@ -32,7 +33,11 @@ class ConsultationController extends Controller
     public function store(StoreConsultationRequest $request)
     {
         $consultation = Consultation::create($request->validated());
-
+        ActivityLog::log(
+                'New Consultation Request',
+                "{$consultation->full_name} requested a {$consultation->type} consultation",
+                'consultation' // Type for icon/filtering
+            );
         // Optional: Send Email Notification here
 
         return new ConsultationResource($consultation);
