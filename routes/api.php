@@ -16,6 +16,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ConsultancyInfoController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\FundApplicationController;
+use App\Http\Controllers\FoundationSettingController;
+use App\Http\Controllers\BookController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -66,6 +68,11 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/fund-applications', [FundApplicationController::class, 'store']);
     Route::get('/funded-individuals', [FundApplicationController::class, 'funded']);
+    Route::get('/foundation-settings', [FoundationSettingController::class, 'index']);
+
+    Route::get('/books', [BookController::class, 'index']); // ?type=Historic
+    Route::get('/books/{book}', [BookController::class, 'show']); // Reads book info
+    Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download'); // Downloads PDF
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -136,12 +143,18 @@ Route::middleware(['auth:api'])->group(function () {
     Route::patch('/consultations/{consultation}/payment', [ConsultationController::class, 'updatePaymentStatus']);
 
     // Fund Application Management Routes
+    Route::post('/foundation-settings', [FoundationSettingController::class, 'update']);
     Route::get('/fund-applications', [FundApplicationController::class, 'index']);
     Route::get('/fund-applications/{fundApplication}', [FundApplicationController::class, 'show']);
     Route::delete('/fund-applications/{fundApplication}', [FundApplicationController::class, 'destroy']);
 
     // Update Status
     Route::patch('/fund-applications/{fundApplication}/status', [FundApplicationController::class, 'updateStatus']);
+    // Book Management Routes
+    Route::post('/books', [BookController::class, 'store']);
+    Route::post('/books/{book}', [BookController::class, 'update']); // Use POST for files
+    Route::delete('/books/{book}', [BookController::class, 'destroy']);
+
 });
 
 

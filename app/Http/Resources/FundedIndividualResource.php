@@ -18,6 +18,7 @@ class FundedIndividualResource extends JsonResource
             'institution'    => $this->organization,  // "Bangladesh Agri..."
             'country'        => $this->country ?? 'Bangladesh', // Default if empty
             'year'           => $this->created_at->format('Y'), // "2024"
+                'amount'         => $this->amount_requested,
 
             // Prefer project_title, fallback to purpose if title is missing
             'project'        => $this->project_title ?? $this->purpose,

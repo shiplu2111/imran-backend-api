@@ -6,8 +6,11 @@ return [
 
     'allowed_methods' => ['*'], // Allow all methods or you can define specific ones like 'GET', 'POST', etc.
 
-    'allowed_origins' => [
+     'allowed_origins' => [
         'http://localhost:3000', // Replace with your frontend URL
+        'https://admin.imranuzzaman.com',
+        'https://imranuzzaman.com',
+        'http://imran-api.test',
     ],
 
     'allowed_origins_patterns' => [],
