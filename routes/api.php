@@ -18,6 +18,7 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\FundApplicationController;
 use App\Http\Controllers\FoundationSettingController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BiographyController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -73,6 +74,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/books', [BookController::class, 'index']); // ?type=Historic
     Route::get('/books/{book}', [BookController::class, 'show']); // Reads book info
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download'); // Downloads PDF
+    Route::get('/biography', [BiographyController::class, 'index']);
+
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -154,6 +157,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/books', [BookController::class, 'store']);
     Route::post('/books/{book}', [BookController::class, 'update']); // Use POST for files
     Route::delete('/books/{book}', [BookController::class, 'destroy']);
+    Route::post('/biography', [BiographyController::class, 'update']);
 
 });
 
