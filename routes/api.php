@@ -19,6 +19,7 @@ use App\Http\Controllers\FundApplicationController;
 use App\Http\Controllers\FoundationSettingController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BiographyController;
+use App\Http\Controllers\PhilosophySettingController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -41,7 +42,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/donations', [DonationController::class, 'index']);
     Route::get('/donations/total', [DonationController::class, 'total']);
     Route::get('/donations/{donation}', [DonationController::class, 'show']);
-
     // Category Routes
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/categories/{category}', [CategoryController::class, 'show']);
@@ -76,6 +76,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download'); // Downloads PDF
     Route::get('/biography', [BiographyController::class, 'index']);
 
+    Route::get('/philosophy', [PhilosophySettingController::class, 'index']);
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -158,6 +159,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/books/{book}', [BookController::class, 'update']); // Use POST for files
     Route::delete('/books/{book}', [BookController::class, 'destroy']);
     Route::post('/biography', [BiographyController::class, 'update']);
+    Route::post('/philosophy', [PhilosophySettingController::class, 'update']);
 
 });
 
