@@ -22,6 +22,7 @@ use App\Http\Controllers\BiographyController;
 use App\Http\Controllers\PhilosophySettingController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\AcademicAchievementController;
+use App\Http\Controllers\ExperienceController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -81,6 +82,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/philosophy', [PhilosophySettingController::class, 'index']);
     Route::get('/education', [EducationController::class, 'index']);
     Route::get('/achievements', [AcademicAchievementController::class, 'index']);
+
+    Route::get('/experiences', [ExperienceController::class, 'index']);
+    Route::get('/experiences/{experience}', [ExperienceController::class, 'show']);
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -174,7 +178,10 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/achievements', [AcademicAchievementController::class, 'store']);
     Route::put('/achievements/{academicAchievement}', [AcademicAchievementController::class, 'update']);
     Route::delete('/achievements/{academicAchievement}', [AcademicAchievementController::class, 'destroy']);
-
+    // Experiences
+    Route::post('/experiences', [ExperienceController::class, 'store']);
+    Route::put('/experiences/{experience}', [ExperienceController::class, 'update']);
+    Route::delete('/experiences/{experience}', [ExperienceController::class, 'destroy']);
 });
 
 
