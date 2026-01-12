@@ -23,6 +23,7 @@ use App\Http\Controllers\PhilosophySettingController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\AcademicAchievementController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\ResearchProjectController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -85,6 +86,9 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/experiences', [ExperienceController::class, 'index']);
     Route::get('/experiences/{experience}', [ExperienceController::class, 'show']);
+
+    Route::get('/research-projects', [ResearchProjectController::class, 'index']);
+Route::get('/research-projects/{researchProject}', [ResearchProjectController::class, 'show']);
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -182,6 +186,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/experiences', [ExperienceController::class, 'store']);
     Route::put('/experiences/{experience}', [ExperienceController::class, 'update']);
     Route::delete('/experiences/{experience}', [ExperienceController::class, 'destroy']);
+
+    // Research Projects
+    Route::post('/research-projects', [ResearchProjectController::class, 'store']);
+    Route::match(['put', 'patch'], '/research-projects/{researchProject}', [ResearchProjectController::class, 'update']);
+    Route::delete('/research-projects/{researchProject}', [ResearchProjectController::class, 'destroy']);
 });
 
 
