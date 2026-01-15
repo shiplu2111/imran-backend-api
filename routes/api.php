@@ -30,6 +30,7 @@ use App\Http\Controllers\AwardController;
 use App\Http\Controllers\CvSettingController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\SocialLinkController;
+use App\Http\Controllers\DashboardController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -45,6 +46,8 @@ Route::middleware('auth:api')->group(function () {
         ->name('user.change-password');
 
 });
+
+    Route::get('/dashboard-stats', [DashboardController::class, 'index']);
 
 // public routes
     Route::get('/personal-info', [PersonalInfoController::class, 'index']);
