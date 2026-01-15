@@ -24,6 +24,12 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\AcademicAchievementController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ResearchProjectController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\AwardController;
+use App\Http\Controllers\CvSettingController;
+use App\Http\Controllers\HobbyController;
+use App\Http\Controllers\SocialLinkController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -88,7 +94,16 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/experiences/{experience}', [ExperienceController::class, 'show']);
 
     Route::get('/research-projects', [ResearchProjectController::class, 'index']);
-Route::get('/research-projects/{researchProject}', [ResearchProjectController::class, 'show']);
+    Route::get('/research-projects/{researchProject}', [ResearchProjectController::class, 'show']);
+    Route::get('/skills', [SkillController::class, 'index']);
+    Route::get('/cv-settings', [CvSettingController::class, 'index']);
+    Route::get('/publications', [PublicationController::class, 'index']);
+    Route::get('/awards', [AwardController::class, 'index']);
+    Route::get('/hobbies', [HobbyController::class, 'index']);
+    Route::get('/social-links', [SocialLinkController::class, 'index']);
+
+
+
     //--------------------------- protected routes-----------------------------//
 
 Route::middleware(['auth:api'])->group(function () {
@@ -191,6 +206,29 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/research-projects', [ResearchProjectController::class, 'store']);
     Route::match(['put', 'patch'], '/research-projects/{researchProject}', [ResearchProjectController::class, 'update']);
     Route::delete('/research-projects/{researchProject}', [ResearchProjectController::class, 'destroy']);
-});
 
+    // Skills
+    Route::post('/skills', [SkillController::class, 'store']);
+    Route::match(['put', 'patch'], '/skills/{skill}', [SkillController::class, 'update']);
+    Route::delete('/skills/{skill}', [SkillController::class, 'destroy']);
+    // CV PDF
+    Route::post('/cv-settings', [CvSettingController::class, 'update']);
+
+    // Publications
+    Route::post('/publications', [PublicationController::class, 'store']);
+    Route::match(['put', 'patch'], '/publications/{publication}', [PublicationController::class, 'update']);
+    Route::delete('/publications/{publication}', [PublicationController::class, 'destroy']);
+
+    // Awards
+    Route::post('/awards', [AwardController::class, 'store']);
+    Route::match(['put', 'patch'], '/awards/{award}', [AwardController::class, 'update']);
+    Route::delete('/awards/{award}', [AwardController::class, 'destroy']);
+    Route::post('/hobbies', [HobbyController::class, 'store']);
+    Route::post('/hobbies/{hobby}', [HobbyController::class, 'update']);
+    Route::delete('/hobbies/{hobby}', [HobbyController::class, 'destroy']);
+    Route::post('/social-links', [SocialLinkController::class, 'store']);
+    Route::match(['put', 'patch'], '/social-links/{socialLink}', [SocialLinkController::class, 'update']);
+    Route::delete('/social-links/{socialLink}', [SocialLinkController::class, 'destroy']);
+
+    });
 
