@@ -31,6 +31,11 @@ use App\Http\Controllers\CvSettingController;
 use App\Http\Controllers\HobbyController;
 use App\Http\Controllers\SocialLinkController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImpactStatController;
+use App\Http\Controllers\HighlightController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\ExpertiseController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -48,6 +53,8 @@ Route::middleware('auth:api')->group(function () {
 });
 
     Route::get('/dashboard-stats', [DashboardController::class, 'index']);
+    Route::get('/impact-stats', [ImpactStatController::class, 'index']);
+    Route::get('/highlights', [HighlightController::class, 'index']);
 
 // public routes
     Route::get('/personal-info', [PersonalInfoController::class, 'index']);
@@ -100,11 +107,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/research-projects/{researchProject}', [ResearchProjectController::class, 'show']);
     Route::get('/skills', [SkillController::class, 'index']);
     Route::get('/cv-settings', [CvSettingController::class, 'index']);
+    Route::get('/download-cv', [CvSettingController::class, 'download']);
     Route::get('/publications', [PublicationController::class, 'index']);
     Route::get('/awards', [AwardController::class, 'index']);
     Route::get('/hobbies', [HobbyController::class, 'index']);
     Route::get('/social-links', [SocialLinkController::class, 'index']);
-
+    Route::get('/partners', [PartnerController::class, 'index']);
+    Route::get('/testimonials', [TestimonialController::class, 'index']);
+    Route::get('/expertises', [ExpertiseController::class, 'index']);
 
 
     //--------------------------- protected routes-----------------------------//
@@ -232,6 +242,19 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/social-links', [SocialLinkController::class, 'store']);
     Route::match(['put', 'patch'], '/social-links/{socialLink}', [SocialLinkController::class, 'update']);
     Route::delete('/social-links/{socialLink}', [SocialLinkController::class, 'destroy']);
+    Route::post('/partners', [PartnerController::class, 'store']);
+    Route::post('/partners/{partner}', [PartnerController::class, 'update']); // POST for FormData update
+    Route::delete('/partners/{partner}', [PartnerController::class, 'destroy']);
+    Route::post('/testimonials', [TestimonialController::class, 'store']);
+    Route::post('/testimonials/{testimonial}', [TestimonialController::class, 'update']);
+    Route::delete('/testimonials/{testimonial}', [TestimonialController::class, 'destroy']);
+    Route::post('/expertises', [ExpertiseController::class, 'store']);
+    Route::match(['put', 'patch'], '/expertises/{expertise}', [ExpertiseController::class, 'update']);
+    Route::delete('/expertises/{expertise}', [ExpertiseController::class, 'destroy']);
+
+
+
+
+
 
     });
-

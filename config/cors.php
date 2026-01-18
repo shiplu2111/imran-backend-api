@@ -8,6 +8,10 @@ return [
 
      'allowed_origins' => [
         'http://localhost:3000', // Replace with your frontend URL
+        'http://localhost:3001', // Replace with your frontend URL
+        'http://localhost:8080', // Replace with your frontend URL
+
+
         'https://admin.imranuzzaman.com',
         'https://imranuzzaman.com',
         'http://imran-api.test',

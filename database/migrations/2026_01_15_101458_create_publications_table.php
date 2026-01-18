@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title'); // "Antimicrobial Resistance Patterns..."
             $table->string('year');  // "2022"
             $table->string('link')->nullable(); // URL to the paper
+            $table->string('authors')->nullable();  // "John Doe, Jane Doe"
+            $table->string('journal')->nullable();  // "Journal of Medicine"
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });

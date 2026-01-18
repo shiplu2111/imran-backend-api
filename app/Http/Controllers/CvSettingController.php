@@ -37,4 +37,22 @@ class CvSettingController extends Controller
         $settings->update($data);
         return new CvSettingResource($settings);
     }
+
+    public function download()
+    {
+        $settings = CvSetting::first();
+
+        // Check if file exists
+        if (!$settings || !$settings->cv_file || !Storage::disk('public')->exists($settings->cv_file)) {
+            return response()->json(['message' => 'CV not found'], 404);
+        }
+
+        // Return the download response
+        // 1st arg: File path
+        // 2nd arg: The name the user will see (Hides the messy timestamp name)
+        return Storage::disk('public')->download(
+            $settings->cv_file,
+            'MD_Imranuzzaman_CV.pdf'
+        );
+    }
 }

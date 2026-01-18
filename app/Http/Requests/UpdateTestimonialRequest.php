@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePublicationRequest extends FormRequest
+class UpdateTestimonialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,13 +22,7 @@ class StorePublicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'title' => 'required|string',
-            'year'  => 'required|string|max:4',
-            'link'  => 'nullable|url',
-            'authors' => 'nullable|string|max:255',
-            'journal' => 'nullable|string|max:255',
-            'sort_order' => 'integer',
-            'citations' => 'integer|min:0',
+            //
         ];
     }
 }
