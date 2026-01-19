@@ -23,10 +23,26 @@ class ConsultancyInfoController extends Controller
     }
 
     // PUBLIC: Show Single (Finds by 'type')
-    public function show(ConsultancyInfo $consultancyInfo)
-    {
-        return new ConsultancyInfoResource($consultancyInfo);
+   public function show($type)
+{
+    // 1. Clean the input (Remove spaces, convert to lowercase for comparison)
+    $cleanType = trim($type);
+
+    // 2. Search Case-Insensitive (Handles 'ruminants', 'Ruminants', 'RUMINANTS')
+    // We use 'LIKE' which is case-insensitive in most SQL databases (MySQL/MariaDB)
+    $consultancyInfo = ConsultancyInfo::where('type',  $cleanType)->first();
+
+    // 3. Check if found
+    if (!$consultancyInfo) {
+        return response()->json([
+            'message' => "Data not found. Searched for: '$cleanType'",
+            'debug_hint' => "Check if the 'type' column in your database has hidden spaces."
+        ], 404);
     }
+
+    // 4. Return Resource
+    return new ConsultancyInfoResource($consultancyInfo);
+}
 
     // PROTECTED: Update
     public function update(StoreConsultancyInfoRequest $request, ConsultancyInfo $consultancyInfo)

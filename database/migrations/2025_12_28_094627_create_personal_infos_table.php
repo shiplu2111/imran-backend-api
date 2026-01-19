@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('current_position');
             $table->string('department');
             $table->string('hero_image')->nullable();
-            $table->string('footer_text');
             $table->timestamps();
         });
     }

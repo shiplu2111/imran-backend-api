@@ -36,6 +36,9 @@ use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ExpertiseController;
+use App\Http\Controllers\FoundationDonationController;
+use App\Http\Controllers\WebsiteSettingController;
+use App\Http\Controllers\CareerJourneyController;
 require __DIR__.'/auth.php';
 
 Route::middleware('auth:api')->group(function () {
@@ -94,6 +97,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/books', [BookController::class, 'index']); // ?type=Historic
     Route::get('/books/{book}', [BookController::class, 'show']); // Reads book info
     Route::get('/books/{book}/download', [BookController::class, 'download'])->name('books.download'); // Downloads PDF
+    Route::get('/books/{book}/preview', [BookController::class, 'preview'])->name('books.preview'); // preview PDF
     Route::get('/biography', [BiographyController::class, 'index']);
 
     Route::get('/philosophy', [PhilosophySettingController::class, 'index']);
@@ -115,6 +119,16 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/partners', [PartnerController::class, 'index']);
     Route::get('/testimonials', [TestimonialController::class, 'index']);
     Route::get('/expertises', [ExpertiseController::class, 'index']);
+    Route::get('/foundation-donation/page', [FoundationDonationController::class, 'publicPage']);
+    Route::get('/settings', [WebsiteSettingController::class, 'index']);
+    Route::get('/career-journeys', [CareerJourneyController::class, 'index']);
+
+
+
+
+
+
+
 
 
     //--------------------------- protected routes-----------------------------//
@@ -137,6 +151,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/donations', [DonationController::class, 'store']);
     Route::put('/donations/{donation}', [DonationController::class, 'update']);
     Route::delete('/donations/{donation}', [DonationController::class, 'destroy']);
+    Route::apiResource('foundation-donations', FoundationDonationController::class);
 
     // --- Messages (Admin Read Inbox & Reply) ---
     Route::get('/messages', [MessageController::class, 'index']);       // View Inbox
@@ -251,8 +266,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/expertises', [ExpertiseController::class, 'store']);
     Route::match(['put', 'patch'], '/expertises/{expertise}', [ExpertiseController::class, 'update']);
     Route::delete('/expertises/{expertise}', [ExpertiseController::class, 'destroy']);
-
-
+    Route::post('/settings', [WebsiteSettingController::class, 'update']);
+    Route::apiResource('/admin/career-journeys', CareerJourneyController::class);
 
 
 

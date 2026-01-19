@@ -18,13 +18,13 @@ class BookResource extends JsonResource
             'type'           => $this->type,
 
             // Stats
-            'read_count'     => $this->read_count,
-            'download_count' => $this->download_count,
+            'read_count'     => (int) $this->read_count,
+            'download_count' => (int) $this->download_count,
 
             // URLs
             'thumbnail_url'  => $this->thumbnail ? asset('storage/' . $this->thumbnail) : null,
             // We provide the API download link instead of direct file path to track counts
-            'download_url'   => route('books.download', $this->id),
+            // 'download_url'   => route('books.download', $this->id),
 
             'is_published'   => (bool) $this->is_published,
             'created_at'     => $this->created_at->format('Y-m-d'),

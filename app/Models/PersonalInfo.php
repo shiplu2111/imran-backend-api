@@ -16,6 +16,5 @@ class PersonalInfo extends Model
         'current_position',
         'department',
         'hero_image',
-        'footer_text',
     ];
 }

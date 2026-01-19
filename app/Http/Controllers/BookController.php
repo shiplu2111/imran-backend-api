@@ -18,9 +18,6 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $query = Book::query();
-
-        // IF user is NOT an admin, force them to see only published books
-        // (Assuming you check auth or a specific public flag)
         if (!auth('api')->check()) {
             $query->where('is_published', true);
         }
@@ -35,25 +32,46 @@ class BookController extends Controller
     // PUBLIC: Show Single (Increments "Read" Count)
     public function show(Book $book)
     {
-        // Increment view count
-        $book->increment('read_count');
+    $book->increment('read_count');
 
-        return new BookResource($book);
+    return new BookResource($book);
     }
 
-    // PUBLIC: Download PDF (Increments "Download" Count)
-    public function download(Book $book)
+    public function preview(Book $book)
     {
+        // 1. Check if the file exists in storage
         if (!$book->pdf || !Storage::disk('public')->exists($book->pdf)) {
             return response()->json(['message' => 'PDF not found'], 404);
         }
 
-        // Increment download count
+        // $book->increment('download_count');
+
+        $filename = str_replace(' ', '_', $book->title) . '.pdf';
+
+        return Storage::disk('public')->download(
+            $book->pdf,
+            $filename
+        );
+    }
+    // PUBLIC: Download PDF (Increments "Download" Count)
+    public function download(Book $book)
+    {
+        // 1. Check if the file exists in storage
+        if (!$book->pdf || !Storage::disk('public')->exists($book->pdf)) {
+            return response()->json(['message' => 'PDF not found'], 404);
+        }
+
         $book->increment('download_count');
 
-        // Return file download
-        return Storage::disk('public')->download($book->pdf);
+        $filename = str_replace(' ', '_', $book->title) . '.pdf';
+
+        return Storage::disk('public')->download(
+            $book->pdf,
+            $filename
+        );
     }
+
+
 
     // PROTECTED: Create Book
     public function store(StoreBookRequest $request)
@@ -114,4 +132,5 @@ class BookController extends Controller
         $book->delete();
         return response()->json(['message' => 'Book deleted successfully']);
     }
+
 }

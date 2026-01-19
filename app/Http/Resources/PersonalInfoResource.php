@@ -16,7 +16,6 @@ class PersonalInfoResource extends JsonResource
             'current_position' => $this->current_position,
             'department' => $this->department,
             'hero_image' => $this->hero_image ? asset('storage/' . $this->hero_image) : null,
-            'footer_text' => $this->footer_text,
-        ];
+          ];
     }
 }

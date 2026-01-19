@@ -39,7 +39,6 @@ class PersonalInfoController extends Controller
             'current_position' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'hero_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
-            'footer_text' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -78,7 +77,6 @@ class PersonalInfoController extends Controller
             'current_position' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
-            'footer_text' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
